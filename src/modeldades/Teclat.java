@@ -22,6 +22,10 @@ public class Teclat {
         this.inalambric = inalambric;
     }
 
+    public Teclat() {
+        
+    }
+
     public String getMarca() {
         return marca;
     }
@@ -77,5 +81,4 @@ public class Teclat {
     public void setInalambric(boolean inalambric) {
         this.inalambric = inalambric;
     }
-    
 }

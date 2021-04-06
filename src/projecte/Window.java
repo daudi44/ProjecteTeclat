@@ -16,7 +16,7 @@ public class Window extends javax.swing.JFrame {
 
     private void initMyComponents() {
         //Omplo el vector de teclats inventats
-        for (int i = 0; i < dades.length; i+=5) {
+        for (int i = 0; i < dades.length; i += 5) {
             dades[i] = new Teclat("Newskill", "Serike TKL", "Espanyol", 88, i + 30, false, true);
         }
         refrescarDades();
@@ -37,10 +37,10 @@ public class Window extends javax.swing.JFrame {
 
         jTextField4 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        numTecles = new javax.swing.JTextField();
         textLlenguatje = new javax.swing.JTextField();
         textMarca = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        preu = new javax.swing.JTextField();
         modelText = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -48,11 +48,11 @@ public class Window extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        inal = new javax.swing.JCheckBox();
         jLabel8 = new javax.swing.JLabel();
-        jCheckBox2 = new javax.swing.JCheckBox();
+        ilumin = new javax.swing.JCheckBox();
         borrar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        Insertar = new javax.swing.JButton();
         botoModificar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         taula = new beans.JTableMVCGUI();
@@ -67,9 +67,9 @@ public class Window extends javax.swing.JFrame {
 
         jLabel1.setText("TECLATS DANI");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        numTecles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                numTeclesActionPerformed(evt);
             }
         });
 
@@ -85,9 +85,9 @@ public class Window extends javax.swing.JFrame {
             }
         });
 
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        preu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                preuActionPerformed(evt);
             }
         });
 
@@ -109,17 +109,17 @@ public class Window extends javax.swing.JFrame {
 
         jLabel7.setText("Il·luminació");
 
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        inal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                inalActionPerformed(evt);
             }
         });
 
         jLabel8.setText("Inalàmbric");
 
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+        ilumin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
+                iluminActionPerformed(evt);
             }
         });
 
@@ -130,10 +130,10 @@ public class Window extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("INSERTAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        Insertar.setText("INSERTAR");
+        Insertar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                InsertarActionPerformed(evt);
             }
         });
 
@@ -155,6 +155,11 @@ public class Window extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        taula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                taulaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(taula);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,11 +173,11 @@ public class Window extends javax.swing.JFrame {
                         .addGap(202, 202, 202)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox2)
+                        .addComponent(ilumin)
                         .addGap(71, 71, 71)
                         .addComponent(jLabel8)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox1)
+                        .addComponent(inal)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,14 +199,14 @@ public class Window extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(numTecles, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(preu, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
+                            .addComponent(Insertar)
                             .addComponent(botoModificar)
                             .addComponent(borrar))
                         .addGap(114, 114, 114))))
@@ -224,11 +229,11 @@ public class Window extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(numTecles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(preu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -243,17 +248,17 @@ public class Window extends javax.swing.JFrame {
                             .addComponent(textLlenguatje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(Insertar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botoModificar)
                         .addGap(18, 18, 18)
                         .addComponent(borrar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ilumin, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(inal, javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel8)
                             .addGap(5, 5, 5))))
@@ -265,9 +270,9 @@ public class Window extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void numTeclesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numTeclesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_numTeclesActionPerformed
 
     private void textLlenguatjeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textLlenguatjeActionPerformed
         // TODO add your handling code here:
@@ -281,21 +286,21 @@ public class Window extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void preuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_preuActionPerformed
 
     private void modelTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modelTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_modelTextActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void inalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_inalActionPerformed
 
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+    private void iluminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iluminActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
+    }//GEN-LAST:event_iluminActionPerformed
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
         int filaSel = taula.getSelectedRow();
@@ -313,15 +318,43 @@ public class Window extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Parla amb el programador...");
             }
             refrescarDades();
-            JOptionPane.showMessageDialog(this, "Teclat\n"+borrar+"\nesborrat correctament!");
+            JOptionPane.showMessageDialog(this, "Teclat\n" + borrar + "\nesborrat correctament!");
         } else {
             JOptionPane.showMessageDialog(this, "Per borrar has de seleccionar un teclat de la taula!");
         }
     }//GEN-LAST:event_borrarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void InsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarActionPerformed
+        try {
+            Teclat nou = new Teclat();
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+            nou.setMarca(textMarca.getText().strip());
+            nou.setModel(modelText.getText().strip());
+            nou.setLlenguatje(textLlenguatje.getText().strip());
+            nou.setNum_tecles(Integer.parseInt(numTecles.getText().strip()));
+            nou.setPreu(Double.parseDouble(preu.getText().strip()));
+            nou.setIlluminacio(ilumin.isSelected());
+            nou.setInalambric(inal.isSelected());
+            
+            if(nou.getNum_tecles() < 0) throw new java.lang.NullPointerException();            
+            if(nou.getPreu() < 0) throw new java.lang.NullPointerException();
+            
+            int i;
+            for (i = 0; i < dades.length && dades[i] != null; i++);
+            
+            if(i < dades.length){
+                dades[i] = nou;
+                refrescarDades();
+            }else{
+                JOptionPane.showMessageDialog(this, "Ho sento però no caben més teclats");
+            }
+            
+        }catch(java.lang.NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "El preu/número de tecles no pot ser negatiu!");
+        }catch(java.lang.NullPointerException ex){
+            JOptionPane.showMessageDialog(this, "El preu/número de tecles no pot ser negatiu!");
+        }
+    }//GEN-LAST:event_InsertarActionPerformed
 
     private void botoModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoModificarActionPerformed
         int filaSel = taula.getSelectedRow();
@@ -330,16 +363,19 @@ public class Window extends javax.swing.JFrame {
             taula.getColumnModel().addColumn(tc);
             Teclat modificar = (Teclat) taula.getModel().getValueAt(filaSel, taula.getColumnCount() - 1);
             taula.getColumnModel().removeColumn(tc);
-            
-            
+
             modificar.setMarca(textMarca.getText().strip());
             modificar.setModel(modelText.getText().strip());
             modificar.setLlenguatje(textLlenguatje.getText().strip());
-            
+            modificar.setNum_tecles((int) Double.parseDouble(numTecles.getText().strip()));
+            modificar.setPreu(Double.parseDouble(preu.getText().strip()));
+            modificar.setIlluminacio(ilumin.isSelected());
+            modificar.setInalambric(inal.isSelected());
+
             refrescarDades();
-            JOptionPane.showMessageDialog(this, "Teclat\n"+modificar+"\nmodificada correctament!");
-            
-            JOptionPane.showMessageDialog(this, "Per borrar has de seleccionar un teclat de la taula!");
+            JOptionPane.showMessageDialog(this, "Teclat\n" + modificar + "\nmodificada correctament!");
+        }else {
+            JOptionPane.showMessageDialog(this, "Per modificar has de seleccionar un teclat de la taula!");
         }
     }//GEN-LAST:event_botoModificarActionPerformed
 
@@ -347,9 +383,13 @@ public class Window extends javax.swing.JFrame {
         int filaSel = taula.getSelectedRow();
 
         if (filaSel != -1) {
-            textMarca.setText(taula.getModel().getValueAt(filaSel, 0).toString());
-            modelText.setText(taula.getModel().getValueAt(filaSel, 1).toString());
+            textMarca.setText(taula.getModel().getValueAt(filaSel, 3).toString());
+            modelText.setText(taula.getModel().getValueAt(filaSel, 4).toString());
             textLlenguatje.setText(taula.getModel().getValueAt(filaSel, 2).toString());
+            numTecles.setText(taula.getModel().getValueAt(filaSel, 5).toString());
+            preu.setText(taula.getModel().getValueAt(filaSel, 6).toString());
+            ilumin.setSelected((boolean) taula.getModel().getValueAt(filaSel, 0));
+            inal.setSelected((boolean) taula.getModel().getValueAt(filaSel, 1));
         }
     }//GEN-LAST:event_taulaMouseClicked
 
@@ -392,11 +432,11 @@ public class Window extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Insertar;
     private javax.swing.JButton borrar;
     private javax.swing.JButton botoModificar;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox ilumin;
+    private javax.swing.JCheckBox inal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -406,10 +446,10 @@ public class Window extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField modelText;
+    private javax.swing.JTextField numTecles;
+    private javax.swing.JTextField preu;
     private beans.JTableMVCGUI taula;
     private javax.swing.JTextField textLlenguatje;
     private javax.swing.JTextField textMarca;

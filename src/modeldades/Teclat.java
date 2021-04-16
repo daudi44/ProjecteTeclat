@@ -1,6 +1,6 @@
 package modeldades;
 
-public class Teclat {
+public class Teclat implements java.io.Serializable{
 
     //Les variables del meu objecte
     private String marca;

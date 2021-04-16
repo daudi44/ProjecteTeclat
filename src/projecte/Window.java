@@ -1,5 +1,20 @@
 package projecte;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectInputFilter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
 import modeldades.Teclat;
@@ -14,12 +29,74 @@ public class Window extends javax.swing.JFrame {
         initMyComponents();
     }
 
-    private void initMyComponents() {
-        //Omplo el vector de teclats inventats
-        for (int i = 0; i < dades.length; i += 5) {
-            dades[i] = new Teclat("Newskill", "Serike TKL", "Espanyol", 88, i + 30, false, true);
+    private void llegirFitxer() {
+        if (fitxerDades.exists()) {
+            ObjectInputStream entrada = null;
+
+            try {
+                entrada = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fitxerDades)));
+
+                int i;
+
+                for (i = 0; i < dades.length; i += 2) {
+                    dades[i] = (Teclat) entrada.readObject();
+                }
+
+                if (i == dades.length) {
+                    entrada.readObject();
+                    JOptionPane.showMessageDialog(this, "Atenció, compra la versió premium del programa!");
+                    System.exit(1);
+                }
+
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, "Atenció possible pèrdua de dades!");
+            } catch (IOException ex) {
+            } catch (ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, "Atenció possible pèrdua de dades!");
+            } finally {
+                if (entrada != null) try {
+                    entrada.close();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "Atenció possible pèrdua de dades!");
+                }
+            }
         }
+    }
+
+    private void initMyComponents() {
+        llegirFitxerConfig();
+
+        llegirFitxer();
+
         refrescarDades();
+    }
+
+    private void llegirFitxerConfig() {
+            BufferedReader configIn = null;
+            PrintWriter configOut = null;
+            
+        try {            
+            if (fitxerConfig.exists()) {
+                configIn = new BufferedReader(new FileReader(fitxerConfig));
+                dades = new Teclat[Integer.parseInt(configIn.readLine().strip())];
+            } else {
+                configOut = new PrintWriter(fitxerConfig);
+                configOut.println(10000);
+                configOut.print("passwd");
+                throw new NumberFormatException();
+            }
+
+        } catch (NumberFormatException | IOException ex) {
+            JOptionPane.showMessageDialog(this, "Atenció, problema en el fitxer de configuració");
+            dades = new Teclat[100];
+        } finally {
+            try{
+                if(configIn != null) configIn.close();
+                if(configOut != null) configOut.close();
+            }catch (IOException ex){
+                JOptionPane.showMessageDialog(this, "Atenció, problema en el fitxer de configuració");
+            }
+        }
     }
 
     private void refrescarDades() {
@@ -64,6 +141,12 @@ public class Window extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("TECLATS DANI");
 
@@ -268,6 +351,7 @@ public class Window extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void numTeclesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numTeclesActionPerformed
@@ -335,23 +419,27 @@ public class Window extends javax.swing.JFrame {
             nou.setPreu(Double.parseDouble(preu.getText().strip()));
             nou.setIlluminacio(ilumin.isSelected());
             nou.setInalambric(inal.isSelected());
-            
-            if(nou.getNum_tecles() < 0) throw new java.lang.NullPointerException();            
-            if(nou.getPreu() < 0) throw new java.lang.NullPointerException();
-            
+
+            if (nou.getNum_tecles() < 0) {
+                throw new java.lang.NullPointerException();
+            }
+            if (nou.getPreu() < 0) {
+                throw new java.lang.NullPointerException();
+            }
+
             int i;
             for (i = 0; i < dades.length && dades[i] != null; i++);
-            
-            if(i < dades.length){
+
+            if (i < dades.length) {
                 dades[i] = nou;
                 refrescarDades();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Ho sento però no caben més teclats");
             }
-            
-        }catch(java.lang.NumberFormatException ex){
+
+        } catch (java.lang.NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "El preu/número de tecles no pot ser negatiu!");
-        }catch(java.lang.NullPointerException ex){
+        } catch (java.lang.NullPointerException ex) {
             JOptionPane.showMessageDialog(this, "El preu/número de tecles no pot ser negatiu!");
         }
     }//GEN-LAST:event_InsertarActionPerformed
@@ -374,7 +462,7 @@ public class Window extends javax.swing.JFrame {
 
             refrescarDades();
             JOptionPane.showMessageDialog(this, "Teclat\n" + modificar + "\nmodificada correctament!");
-        }else {
+        } else {
             JOptionPane.showMessageDialog(this, "Per modificar has de seleccionar un teclat de la taula!");
         }
     }//GEN-LAST:event_botoModificarActionPerformed
@@ -392,6 +480,33 @@ public class Window extends javax.swing.JFrame {
             inal.setSelected((boolean) taula.getModel().getValueAt(filaSel, 1));
         }
     }//GEN-LAST:event_taulaMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        ObjectOutputStream sortida = null;
+        try {
+            //Guardem els teclats del vector al fitxer
+            sortida = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fitxerDades)));
+
+            for (int i = 0; i < dades.length; i++) {
+                if (dades[i] != null) {
+                    sortida.writeObject(dades[i]);
+                }
+            }
+
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "Atenció possible pèrdua de dades!");
+        } catch (IOException ex) {
+            //No cal fer res, ja que aqui entrarem quan ja sabem que el fitxer existeix i per tant aquest error no succeirà mai.
+        } finally {
+            try {
+                if (sortida != null) {
+                    sortida.close();
+                }
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Atenció possible pèrdua de dades!");
+            }
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -456,6 +571,13 @@ public class Window extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     //My properties
-    private Teclat[] dades = new Teclat[100];
+    private Teclat[] dades = null;
     private TableColumn tc;
+
+    //Propietats per al tractament de fitxers
+    static final String NOM_FITXER_DADES = "dades2.dat";
+    static File fitxerDades = new File(NOM_FITXER_DADES);
+
+    static final String NOM_FITXER_CONFIG = "config.txt";
+    static File fitxerConfig = new File(NOM_FITXER_CONFIG);
 }

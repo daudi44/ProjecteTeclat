@@ -12,14 +12,14 @@ public class Teclat implements java.io.Serializable{
     private boolean inalambric;
 
     //El constructor
-    public Teclat(String marca, String model, String llenguatje, int num_tecles, int preu, boolean illuminacio, boolean inalambric) {
-        this.marca = marca;
-        this.model = model;
-        this.llenguatje = llenguatje;
-        this.num_tecles = num_tecles;
-        this.preu = preu;
-        this.illuminacio = illuminacio;
-        this.inalambric = inalambric;
+    public Teclat(String _1_marca, String _2_model, String _3_llenguatje, int _4_num_tecles, int _5_preu, boolean _6_illuminacio, boolean _7_inalambric) {
+        this.marca = _1_marca;
+        this.model = _2_model;
+        this.llenguatje = _3_llenguatje;
+        this.num_tecles = _4_num_tecles;
+        this.preu = _5_preu;
+        this.illuminacio = _6_illuminacio;
+        this.inalambric = _7_inalambric;
     }
 
     public Teclat() {

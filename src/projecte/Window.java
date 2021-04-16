@@ -1,5 +1,7 @@
 package projecte;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -15,16 +17,18 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.TableColumn;
 import modeldades.Teclat;
 
 public class Window extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Window
-     */
+    FonsPrograma fons = new FonsPrograma();
+    
     public Window() {
+        this.setContentPane(fons);
         initComponents();
         initMyComponents();
     }
@@ -148,6 +152,7 @@ public class Window extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Yrsa Medium", 0, 36)); // NOI18N
         jLabel1.setText("TECLATS DANI");
 
         numTecles.addActionListener(new java.awt.event.ActionListener() {
@@ -336,7 +341,7 @@ public class Window extends javax.swing.JFrame {
                         .addComponent(botoModificar)
                         .addGap(18, 18, 18)
                         .addComponent(borrar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ilumin, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -391,7 +396,7 @@ public class Window extends javax.swing.JFrame {
 
         if (filaSel != -1) {
             taula.getColumnModel().addColumn(tc);
-            Teclat borrar = (Teclat) taula.getModel().getValueAt(filaSel, taula.getColumnCount() - 1);
+            Teclat borrar = (Teclat)taula.getModel().getValueAt(filaSel,taula.getColumnCount() - 1);
             taula.getColumnModel().removeColumn(tc);
             int i;
             for (i = 0; i < dades.length && (dades[i] == null || !dades[i].equals(borrar)); i++);
@@ -402,7 +407,7 @@ public class Window extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Parla amb el programador...");
             }
             refrescarDades();
-            JOptionPane.showMessageDialog(this, "Teclat\n" + borrar + "\nesborrat correctament!");
+            JOptionPane.showMessageDialog(this, "Teclat\n"+borrar+"\nesborrat correctament!");
         } else {
             JOptionPane.showMessageDialog(this, "Per borrar has de seleccionar un teclat de la taula!");
         }
@@ -461,7 +466,7 @@ public class Window extends javax.swing.JFrame {
             modificar.setInalambric(inal.isSelected());
 
             refrescarDades();
-            JOptionPane.showMessageDialog(this, "Teclat\n" + modificar + "\nmodificada correctament!");
+            JOptionPane.showMessageDialog(this, "Teclat\n"+modificar+"\nmodificada correctament!");
         } else {
             JOptionPane.showMessageDialog(this, "Per modificar has de seleccionar un teclat de la taula!");
         }
@@ -580,4 +585,16 @@ public class Window extends javax.swing.JFrame {
 
     static final String NOM_FITXER_CONFIG = "config.txt";
     static File fitxerConfig = new File(NOM_FITXER_CONFIG);
+    
+    class FonsPrograma extends JPanel{
+        private Image imatge;
+        
+        @Override
+        public void paint(Graphics g){
+            imatge = new ImageIcon(getClass().getResource("/imatges/Teclado-mecanico-silent.jpg")).getImage();            
+            g.drawImage(imatge, 0, 0, getWidth(), getHeight(), this);            
+            setOpaque(false);            
+            super.paint(g);
+        }
+    }
 }

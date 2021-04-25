@@ -1,15 +1,17 @@
 package projecte;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import modeldades.Teclat;
-import static projecte.Window.fitxerDades;
+import javax.swing.JPanel;
+import projecte.Window.FonsPrograma;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,10 +24,10 @@ import static projecte.Window.fitxerDades;
  */
 public class Contrasenya extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Contrasenya
-     */
+    FonsContrasenya fons = new FonsContrasenya();
+
     public Contrasenya() {
+        this.setContentPane(fons);
         initComponents();
         initMyComponents();
     }
@@ -33,7 +35,7 @@ public class Contrasenya extends javax.swing.JFrame {
     private void initMyComponents() {
         //Borrem el text de la casella del password        
         textPassword.setText("");
-        
+
         llegirFitxerConfig();
     }
 
@@ -85,9 +87,12 @@ public class Contrasenya extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         textPassword.setText("jPasswordField1");
 
+        jLabel1.setFont(new java.awt.Font("Uroob", 0, 24)); // NOI18N
+        jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Contrasenya:");
 
         jButton1.setText("Entrar");
@@ -129,7 +134,7 @@ public class Contrasenya extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            if (textPassword.getText().equals(passwd)) {
+        if (textPassword.getText().equals(passwd)) {
             Window v = new Window();
             v.setVisible(true);
 
@@ -188,4 +193,16 @@ public class Contrasenya extends javax.swing.JFrame {
 
     private static final String NOM_FITXER_DADES = "dades2.dat";
     private File fitxerDades = new File(NOM_FITXER_DADES);
+
+    class FonsContrasenya extends JPanel{
+        private Image imatge2;
+        
+        @Override
+        public void paint(Graphics g){
+            imatge2 = new ImageIcon(getClass().getResource("/imatges/contra.png")).getImage();            
+            g.drawImage(imatge2, 0, 0, getWidth(), getHeight(), this);            
+            setOpaque(false);            
+            super.paint(g);
+        }
+    }
 }
